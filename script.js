@@ -50,22 +50,29 @@ $("anketa").addEventListener("submit", async e => {
     form.querySelector(".radio-row").insertAdjacentHTML("afterend", '<div class="err">Выберите «Приду» или «Не приду»</div>');
     return;
   }
-  const btn = form.querySelector(".send-btn");
-  btn.disabled = true;
+  form.querySelector(".send-btn").disabled = true;
   const data = { "ФИО": name, "Ответ": chosen };
-  try {
-    if (RSVP_ENDPOINT) {
-      // Apps Script не отдаёт CORS-заголовки, поэтому no-cors: ответ непрозрачный, ошибки сети всё равно ловятся
-      await fetch(RSVP_ENDPOINT, { method: "POST", mode: "no-cors", body: new URLSearchParams(data) });
-    }
-    try { localStorage.setItem("rsvp", JSON.stringify(data)); } catch (_) {}
-    form.style.display = "none";
-    $("ok").style.display = "block";
-  } catch (_) {
-    btn.disabled = false;
-    btn.insertAdjacentHTML("afterend", '<div class="err">Не удалось отправить. Попробуйте ещё раз.</div>');
-  }
+  // Apps Script отвечает несколько секунд, поэтому «Спасибо» показываем сразу, а данные уходят в фоне
+  form.style.display = "none";
+  $("ok").style.display = "block";
+  queueRsvp(data);
+  flushRsvp();
 });
+
+// Ответы, которые не удалось отправить (нет сети), хранятся и досылаются при следующем заходе на сайт
+function readQueue() { try { return JSON.parse(localStorage.getItem("rsvpQueue") || "[]"); } catch (_) { return []; } }
+function writeQueue(q) { try { localStorage.setItem("rsvpQueue", JSON.stringify(q)); } catch (_) {} }
+function queueRsvp(data) { const q = readQueue(); q.push(data); writeQueue(q); }
+function flushRsvp() {
+  if (!RSVP_ENDPOINT) return;
+  readQueue().forEach(item => {
+    // Apps Script не отдаёт CORS-заголовки, поэтому no-cors; keepalive — чтобы запрос дошёл, даже если гость закроет вкладку
+    fetch(RSVP_ENDPOINT, { method: "POST", mode: "no-cors", keepalive: true, body: new URLSearchParams(item) })
+      .then(() => writeQueue(readQueue().filter(x => JSON.stringify(x) !== JSON.stringify(item))))
+      .catch(() => {});
+  });
+}
+flushRsvp();
 
 // ---- Музыка ----
 const audio = $("bg-audio"), wrap = $("music-wrap"), icon = $("music-icon");
