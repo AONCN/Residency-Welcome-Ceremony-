@@ -1,66 +1,83 @@
 // ---- Настройки ----
-// Куда отправлять анкеты (Google Apps Script / Formspree и т.п.). Пока пусто — ответ сохраняется только в браузере.
+// Куда отправлять анкеты (например, https://formsubmit.co/ajax/<email> или Google Apps Script).
+// Пока пусто: анкета не уходит никуда, ответ сохраняется только в браузере гостя.
 const RSVP_ENDPOINT = "";
-// Дата события: 09.10.2026 19:00 (Астана, UTC+5)
+// 09.10.2026 19:00, Астана (UTC+5)
 const EVENT = new Date("2026-10-09T19:00:00+05:00");
+const $ = id => document.getElementById(id);
 
 // ---- Отсчёт ----
-const pad = n => String(n).padStart(2, "0");
 function tick() {
-  let s = Math.max(0, Math.floor((EVENT - Date.now()) / 1000));
-  const d = Math.floor(s / 86400); s %= 86400;
-  const h = Math.floor(s / 3600); s %= 3600;
-  const m = Math.floor(s / 60); s %= 60;
-  document.getElementById("cd-d").textContent = pad(d);
-  document.getElementById("cd-h").textContent = pad(h);
-  document.getElementById("cd-m").textContent = pad(m);
-  document.getElementById("cd-s").textContent = pad(s);
+  const d = Math.max(0, EVENT - Date.now());
+  const p = n => String(n).padStart(2, "0");
+  $("cd-d").textContent = p(Math.floor(d / 86400000));
+  $("cd-h").textContent = p(Math.floor(d % 86400000 / 3600000));
+  $("cd-m").textContent = p(Math.floor(d % 3600000 / 60000));
+  $("cd-s").textContent = p(Math.floor(d % 60000 / 1000));
 }
 tick(); setInterval(tick, 1000);
 
-// ---- Календарь (октябрь 2026, неделя с понедельника) ----
+// ---- Календарь: октябрь 2026, неделя с понедельника ----
 (function () {
-  const cal = document.getElementById("calendar");
-  const y = EVENT.getFullYear(), mo = 9;
-  ["Пн","Вт","Ср","Чт","Пт","Сб","Вс"].forEach(t => cal.insertAdjacentHTML("beforeend", `<span class="dow">${t}</span>`));
-  const offset = (new Date(y, mo, 1).getDay() + 6) % 7;
-  const days = new Date(y, mo + 1, 0).getDate();
-  for (let i = 0; i < offset; i++) cal.insertAdjacentHTML("beforeend", "<span></span>");
-  for (let d = 1; d <= days; d++)
-    cal.insertAdjacentHTML("beforeend", `<span class="${d === 9 ? "day" : ""}">${d}</span>`);
+  const y = 2026, m = 9;
+  const offset = (new Date(y, m, 1).getDay() + 6) % 7;
+  const days = new Date(y, m + 1, 0).getDate();
+  const cells = Array(offset).fill("<td></td>");
+  for (let d = 1; d <= days; d++) cells.push(`<td${d === 9 ? ' class="hi"' : ""}>${d}</td>`);
+  while (cells.length % 7) cells.push("<td></td>");
+  let html = "";
+  for (let i = 0; i < cells.length; i += 7) html += "<tr>" + cells.slice(i, i + 7).join("") + "</tr>";
+  $("cal-body").innerHTML = html;
 })();
 
-// ---- Появление блоков ----
-const io = new IntersectionObserver(es => es.forEach(e => {
-  if (e.isIntersecting) { e.target.classList.add("show"); io.unobserve(e.target); }
-}), { threshold: .15 });
-document.querySelectorAll(".reveal").forEach(el => io.observe(el));
-
-// ---- Музыка ----
-const audio = document.getElementById("audio"), btn = document.getElementById("music");
-btn.addEventListener("click", () => {
-  if (audio.paused) {
-    audio.play().then(() => btn.classList.add("on")).catch(() => {});
-  } else {
-    audio.pause(); btn.classList.remove("on");
-  }
-});
-
 // ---- Анкета ----
-document.getElementById("form").addEventListener("submit", async e => {
+let chosen = "";
+document.querySelectorAll(".r-opt").forEach(el => {
+  const pick = () => {
+    chosen = el.dataset.v;
+    document.querySelectorAll(".r-opt").forEach(o => o.classList.remove("on"));
+    el.classList.add("on");
+  };
+  el.addEventListener("click", pick);
+  el.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); pick(); } });
+});
+$("anketa").addEventListener("submit", async e => {
   e.preventDefault();
-  const f = e.target, status = document.getElementById("status");
-  const data = { name: f.name.value.trim(), attend: f.attend.value, at: new Date().toISOString() };
+  const form = e.target, name = $("fn").value.trim();
+  form.querySelector(".err")?.remove();
+  if (!name) { $("fn").focus(); return; }
+  if (!chosen) {
+    form.querySelector(".radio-row").insertAdjacentHTML("afterend", '<div class="err">Выберите «Приду» или «Не приду»</div>');
+    return;
+  }
+  const btn = form.querySelector(".send-btn");
+  btn.disabled = true;
+  const data = { "ФИО": name, "Ответ": chosen };
   try {
     if (RSVP_ENDPOINT) {
-      await fetch(RSVP_ENDPOINT, { method: "POST", mode: "no-cors", body: JSON.stringify(data) });
+      const r = await fetch(RSVP_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(data) });
+      if (!r.ok) throw new Error(r.status);
     }
     try { localStorage.setItem("rsvp", JSON.stringify(data)); } catch (_) {}
-    status.textContent = data.attend === "Приду"
-      ? "Спасибо! Ждём вас 9 октября в 19:00."
-      : "Спасибо за ответ. Нам жаль, что вы не сможете прийти.";
-    f.reset();
+    form.style.display = "none";
+    $("ok").style.display = "block";
   } catch (_) {
-    status.textContent = "Не удалось отправить. Попробуйте ещё раз.";
+    btn.disabled = false;
+    btn.insertAdjacentHTML("afterend", '<div class="err">Не удалось отправить. Попробуйте ещё раз.</div>');
   }
 });
+
+// ---- Музыка ----
+const audio = $("bg-audio"), wrap = $("music-wrap"), icon = $("music-icon");
+audio.volume = 0.4;
+const setOn = on => { wrap.classList.toggle("on", on); icon.textContent = on ? "❚❚" : "♪"; };
+function toggle() {
+  if (audio.paused) audio.play().then(() => setOn(true)).catch(() => {});
+  else { audio.pause(); setOn(false); }
+}
+wrap.addEventListener("click", e => { e.stopPropagation(); toggle(); });
+wrap.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); } });
+// Автозапуск: сразу, а если браузер не разрешил — на первом касании
+function tryPlay() { if (audio.paused) audio.play().then(() => setOn(true)).catch(() => {}); }
+tryPlay();
+["touchstart", "click"].forEach(ev => document.addEventListener(ev, tryPlay, { once: true }));

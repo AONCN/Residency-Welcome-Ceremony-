@@ -1,90 +1,136 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Посвящение в резиденты</title>
-<meta name="description" content="Приглашение на Посвящение первокурсников в резиденты АО «Национальный центр нейрохирургии»">
+<meta property="og:title" content="Посвящение в резиденты · 09.10.2026">
+<meta property="og:description" content="Приглашаем на Посвящение первокурсников в резиденты АО «Национальный центр нейрохирургии»">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<button id="music" class="music" aria-label="Включить музыку" title="Музыка">♪</button>
-<audio id="audio" src="assets/music.mp3" loop preload="none"></audio>
+<div id="bg"></div>
+<div id="bg-overlay"></div>
 
-<!-- Титульный лист -->
-<header class="hero">
-  <div class="hero__inner">
-    <p class="eyebrow">Приглашение</p>
-    <div class="ornament">✦</div>
-    <h1>Посвящение<br>в резиденты</h1>
-    <p class="hero__org">АО «Национальный центр нейрохирургии»</p>
-    <p class="hero__date">09.10.2026 · 19:00</p>
-    <a href="#rsvp" class="btn">Подтвердить участие</a>
+<!-- ТИТУЛЬНЫЙ ЛИСТ -->
+<div class="pane hero">
+  <div class="hero-eyebrow">Приглашение</div>
+  <div class="hero-rule"><div class="hero-rule-line"></div><span class="hero-rule-gem">✦</span><div class="hero-rule-line r"></div></div>
+  <div class="hero-name">Посвящение</div>
+  <div class="hero-subtitle">в резиденты</div>
+  <div class="hero-org">АО «Национальный центр нейрохирургии»</div>
+  <div class="hero-divider"></div>
+  <div class="hero-date">09 · 10 · 2026</div>
+</div>
+
+<div class="scroll-hint"><div class="s-arrow"></div><div class="s-arrow"></div><div class="s-arrow"></div></div>
+
+<!-- ТЕКСТ ПРИГЛАШЕНИЯ -->
+<div class="pane" style="padding:0 16px;">
+  <div class="section card" style="padding:60px 40px;">
+    <div class="ornament"><div class="orn-line"></div><span class="orn-gem">❖</span><div class="orn-line r"></div></div>
+    <p class="invite-body">
+      Дорогие друзья! Приглашаем вас на торжественное <strong>Посвящение первокурсников в резиденты</strong>
+      АО «Национальный центр нейрохирургии».
+    </p>
+    <div class="gold-hr"></div>
+    <p class="invite-body">
+      Мы будем рады видеть всех выпускников центра — разделите с нами радость этого важного вечера!
+    </p>
   </div>
-  <div class="scroll" aria-hidden="true">⌄</div>
-</header>
+</div>
 
-<!-- Текст приглашения -->
-<section class="block reveal">
-  <div class="ornament">✦</div>
-  <h2>Дорогие друзья!</h2>
-  <p>Приглашаем вас на торжественное Посвящение первокурсников в резиденты
-  АО «Национальный центр нейрохирургии».</p>
-  <p>Этот вечер станет началом большого профессионального пути для наших
-  новых резидентов. Мы будем рады видеть всех выпускников центра — вместе
-  мы разделим радость этого важного события и поддержим тех, кто только
-  делает первые шаги в нейрохирургии.</p>
-  <p class="accent">Будем рады видеть вас!</p>
-</section>
-
-<!-- Отсчёт времени -->
-<section class="block reveal">
-  <h2>До праздника осталось</h2>
-  <div class="countdown" id="countdown">
-    <div><b id="cd-d">00</b><span>дней</span></div>
-    <div><b id="cd-h">00</b><span>часов</span></div>
-    <div><b id="cd-m">00</b><span>минут</span></div>
-    <div><b id="cd-s">00</b><span>секунд</span></div>
+<!-- ДАТА -->
+<div class="pane" style="padding:16px 16px 0;">
+  <div class="section card" style="padding:52px 32px;">
+    <div class="ornament"><div class="orn-line"></div><span class="orn-gem">✦</span><div class="orn-line r"></div></div>
+    <div class="date-row">
+      <div class="date-cell"><div class="date-num">09</div><div class="date-lbl">День</div></div>
+      <div class="date-cell"><div class="date-num">10</div><div class="date-lbl">Октябрь</div></div>
+      <div class="date-cell"><div class="date-num">2026</div><div class="date-lbl">Год</div></div>
+      <div class="date-cell"><div class="date-num">19:00</div><div class="date-lbl">Время</div></div>
+    </div>
   </div>
-</section>
+</div>
 
-<!-- Календарь -->
-<section class="block reveal">
-  <h2>Октябрь 2026</h2>
-  <div class="calendar" id="calendar"></div>
-  <p class="time">Пятница, 9 октября · 19:00</p>
-</section>
+<!-- ОТСЧЁТ -->
+<div class="pane" style="padding:16px 16px 0;">
+  <div class="section card-dark" style="padding:52px 32px;">
+    <div class="cd-subtitle">До Посвящения осталось</div>
+    <div class="cd-grid">
+      <div class="cd-cell"><span class="cd-num" id="cd-d">—</span><span class="cd-lbl">Дней</span></div>
+      <div class="cd-cell"><span class="cd-num" id="cd-h">—</span><span class="cd-lbl">Часов</span></div>
+      <div class="cd-cell"><span class="cd-num" id="cd-m">—</span><span class="cd-lbl">Минут</span></div>
+      <div class="cd-cell"><span class="cd-num" id="cd-s">—</span><span class="cd-lbl">Секунд</span></div>
+    </div>
+  </div>
+</div>
 
-<!-- Место -->
-<section class="block reveal">
-  <h2>Место проведения</h2>
-  <p class="place">La Strada</p>
-  <p>ул. Беймбет Майлина, 35</p>
-  <a class="btn" target="_blank" rel="noopener"
-     href="https://2gis.kz/astana/search/la%20strada/firm/70000001115627987/71.485174%2C51.148291">Открыть в 2GIS</a>
-</section>
+<!-- КАЛЕНДАРЬ -->
+<div class="pane" style="padding:16px 16px 0;">
+  <div class="section card" style="padding:52px 32px;">
+    <div class="ornament"><div class="orn-line"></div><span class="orn-gem">❖</span><div class="orn-line r"></div></div>
+    <div class="cal-month">Октябрь 2026</div>
+    <table class="cal-table">
+      <thead><tr><th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th><th>Сб</th><th>Вс</th></tr></thead>
+      <tbody id="cal-body"></tbody>
+    </table>
+  </div>
+</div>
 
-<!-- Анкета -->
-<section class="block reveal" id="rsvp">
-  <h2>Анкета гостя</h2>
-  <p>Пожалуйста, подтвердите ваше присутствие</p>
-  <form id="form" class="form">
-    <label>ФИО
-      <input type="text" name="name" required autocomplete="name" placeholder="Иванов Иван Иванович">
-    </label>
-    <fieldset>
-      <label class="radio"><input type="radio" name="attend" value="Приду" required><span>Приду</span></label>
-      <label class="radio"><input type="radio" name="attend" value="Не приду"><span>Не приду</span></label>
-    </fieldset>
-    <button type="submit" class="btn">Отправить</button>
-    <p id="status" class="status" role="status"></p>
-  </form>
-</section>
+<!-- МЕСТО -->
+<div class="pane" style="padding:16px 16px 0;">
+  <div class="section card" style="padding:52px 32px;">
+    <div class="ornament"><div class="orn-line"></div><span class="orn-gem">✦</span><div class="orn-line r"></div></div>
+    <div class="venue-label">Место проведения</div>
+    <div class="venue-name">La Strada</div>
+    <div class="venue-addr">ул. Беймбет Майлина, 35</div>
+    <a class="map-btn" target="_blank" rel="noopener"
+       href="https://2gis.kz/astana/search/la%20strada/firm/70000001115627987/71.485174%2C51.148291">Открыть в 2GIS →</a>
+  </div>
+</div>
 
-<footer class="footer">✦</footer>
+<!-- АНКЕТА -->
+<div class="pane" style="padding:16px 16px 40px;">
+  <div class="section card" style="padding:52px 36px;max-width:560px;">
+    <form id="anketa">
+      <div class="ornament"><div class="orn-line"></div><span class="orn-gem">❖</span><div class="orn-line r"></div></div>
+      <div class="anketa-title">Анкета</div>
+      <div class="anketa-sub">Просим подтвердить ваше присутствие</div>
+
+      <div class="f-group">
+        <label class="f-lbl" for="fn">ФИО</label>
+        <input class="f-inp" type="text" name="ФИО" id="fn" placeholder="Ваше ФИО..." autocomplete="name" required>
+      </div>
+
+      <div class="f-group">
+        <span class="f-lbl">Вы придёте?</span>
+        <div class="radio-row">
+          <div class="r-opt" role="button" tabindex="0" data-v="Приду">Приду</div>
+          <div class="r-opt" role="button" tabindex="0" data-v="Не приду">Не приду</div>
+        </div>
+      </div>
+
+      <button type="submit" class="send-btn">Отправить</button>
+    </form>
+    <div class="ok-msg" id="ok">Спасибо!</div>
+  </div>
+</div>
+
+<!-- КНОПКА МУЗЫКИ -->
+<div id="music-wrap" role="button" tabindex="0" aria-label="Музыка">
+  <svg id="music-ring" viewBox="0 0 80 80" aria-hidden="true">
+    <path id="tp" fill="none" d="M40,40 m-32,0 a32,32 0 1,1 64,0 a32,32 0 1,1 -64,0"/>
+    <text font-family="'Cormorant Garamond',serif" font-size="8" fill="rgba(212,175,55,0.95)" letter-spacing="2.5">
+      <textPath href="#tp">Музыка · Музыка · Музыка · Музыка · </textPath>
+    </text>
+  </svg>
+  <div id="music-btn"><span id="music-icon">♪</span></div>
+</div>
+<audio id="bg-audio" loop preload="auto" src="assets/music.mp3"></audio>
 
 <script src="script.js"></script>
 </body>
