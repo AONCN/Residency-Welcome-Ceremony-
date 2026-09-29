@@ -1,0 +1,56 @@
+:root{--gold:#d4af37;--gold-l:#f1d97a;--bg:#0a0a0a;--text:#efe6cf}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:#0a0a0a url("assets/bg.jpg") center/cover fixed no-repeat;
+  color:var(--text);font-family:"Montserrat",sans-serif;font-weight:300;line-height:1.7;
+  min-height:100vh;
+}
+body::before{content:"";position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:-1}
+h1,h2,.place{font-family:"Cormorant Garamond",serif;font-weight:600;color:var(--gold);letter-spacing:.04em}
+h1{font-size:clamp(2.6rem,9vw,5rem);line-height:1.1;text-transform:uppercase}
+h2{font-size:clamp(1.7rem,5vw,2.4rem);margin-bottom:1rem}
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:2rem;position:relative}
+.hero__inner{border:1px solid var(--gold);outline:1px solid rgba(212,175,55,.35);outline-offset:8px;padding:3rem 1.5rem;max-width:640px;width:100%;background:rgba(0,0,0,.45)}
+.eyebrow{text-transform:uppercase;letter-spacing:.4em;font-size:.8rem;color:var(--gold-l)}
+.ornament{color:var(--gold);font-size:1.4rem;margin:1rem 0}
+.hero__org{margin-top:1.2rem;font-size:1rem;letter-spacing:.08em}
+.hero__date{margin:1.2rem 0 2rem;font-family:"Cormorant Garamond",serif;font-size:1.9rem;color:var(--gold-l)}
+.scroll{position:absolute;bottom:1rem;color:var(--gold);font-size:2rem;animation:bob 1.8s infinite}
+@keyframes bob{50%{transform:translateY(8px)}}
+.block{max-width:640px;margin:0 auto;padding:4.5rem 1.5rem;text-align:center}
+.block p{margin-bottom:1rem}
+.accent{color:var(--gold-l);font-family:"Cormorant Garamond",serif;font-size:1.5rem}
+.place{font-size:2.2rem}
+.btn{display:inline-block;background:transparent;color:var(--gold);border:1px solid var(--gold);padding:.85rem 2rem;
+  text-transform:uppercase;letter-spacing:.15em;font:500 .85rem "Montserrat",sans-serif;text-decoration:none;cursor:pointer;transition:.3s;margin-top:.5rem}
+.btn:hover{background:var(--gold);color:#000}
+.countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem}
+.countdown div{border:1px solid rgba(212,175,55,.5);padding:1rem .3rem;background:rgba(0,0,0,.45)}
+.countdown b{display:block;font:600 clamp(1.6rem,7vw,2.6rem) "Cormorant Garamond",serif;color:var(--gold)}
+.countdown span{font-size:.7rem;text-transform:uppercase;letter-spacing:.15em}
+.calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;background:rgba(0,0,0,.45);border:1px solid rgba(212,175,55,.5);padding:1rem}
+.calendar span{padding:.5rem 0;font-size:.95rem}
+.calendar .dow{color:var(--gold);font-size:.75rem;text-transform:uppercase}
+.calendar .day{background:var(--gold);color:#000;font-weight:500;border-radius:50%;box-shadow:0 0 14px rgba(212,175,55,.7)}
+.time{margin-top:1.2rem;color:var(--gold-l);letter-spacing:.1em}
+.form{display:flex;flex-direction:column;gap:1.2rem;text-align:left}
+.form label{display:flex;flex-direction:column;gap:.4rem;font-size:.85rem;text-transform:uppercase;letter-spacing:.1em;color:var(--gold)}
+.form input[type=text]{background:rgba(0,0,0,.6);border:1px solid var(--gold);color:var(--text);padding:.85rem;font:inherit;font-size:1rem;text-transform:none;letter-spacing:0}
+.form input:focus{outline:2px solid var(--gold-l)}
+fieldset{border:0;display:flex;gap:.8rem}
+.radio{flex:1;position:relative;cursor:pointer}
+.radio input{position:absolute;opacity:0}
+.radio span{display:block;text-align:center;border:1px solid var(--gold);padding:.85rem;color:var(--text);transition:.3s}
+.radio input:checked+span{background:var(--gold);color:#000}
+.radio input:focus-visible+span{outline:2px solid var(--gold-l)}
+.form .btn{align-self:center}
+.status{text-align:center;color:var(--gold-l);min-height:1.5em}
+.footer{text-align:center;color:var(--gold);padding:2rem}
+.music{position:fixed;top:1rem;right:1rem;z-index:10;width:46px;height:46px;border-radius:50%;background:rgba(0,0,0,.7);
+  border:1px solid var(--gold);color:var(--gold);font-size:1.3rem;cursor:pointer}
+.music.on{background:var(--gold);color:#000;animation:pulse 2s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 8px rgba(212,175,55,.2)}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .9s,transform .9s}
+.reveal.show{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.scroll,.music.on{animation:none}html{scroll-behavior:auto}}

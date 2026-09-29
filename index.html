@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Посвящение в резиденты</title>
+<meta name="description" content="Приглашение на Посвящение первокурсников в резиденты АО «Национальный центр нейрохирургии»">
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<button id="music" class="music" aria-label="Включить музыку" title="Музыка">♪</button>
+<audio id="audio" src="assets/music.mp3" loop preload="none"></audio>
+
+<!-- Титульный лист -->
+<header class="hero">
+  <div class="hero__inner">
+    <p class="eyebrow">Приглашение</p>
+    <div class="ornament">✦</div>
+    <h1>Посвящение<br>в резиденты</h1>
+    <p class="hero__org">АО «Национальный центр нейрохирургии»</p>
+    <p class="hero__date">09.10.2026 · 19:00</p>
+    <a href="#rsvp" class="btn">Подтвердить участие</a>
+  </div>
+  <div class="scroll" aria-hidden="true">⌄</div>
+</header>
+
+<!-- Текст приглашения -->
+<section class="block reveal">
+  <div class="ornament">✦</div>
+  <h2>Дорогие друзья!</h2>
+  <p>Приглашаем вас на торжественное Посвящение первокурсников в резиденты
+  АО «Национальный центр нейрохирургии».</p>
+  <p>Этот вечер станет началом большого профессионального пути для наших
+  новых резидентов. Мы будем рады видеть всех выпускников центра — вместе
+  мы разделим радость этого важного события и поддержим тех, кто только
+  делает первые шаги в нейрохирургии.</p>
+  <p class="accent">Будем рады видеть вас!</p>
+</section>
+
+<!-- Отсчёт времени -->
+<section class="block reveal">
+  <h2>До праздника осталось</h2>
+  <div class="countdown" id="countdown">
+    <div><b id="cd-d">00</b><span>дней</span></div>
+    <div><b id="cd-h">00</b><span>часов</span></div>
+    <div><b id="cd-m">00</b><span>минут</span></div>
+    <div><b id="cd-s">00</b><span>секунд</span></div>
+  </div>
+</section>
+
+<!-- Календарь -->
+<section class="block reveal">
+  <h2>Октябрь 2026</h2>
+  <div class="calendar" id="calendar"></div>
+  <p class="time">Пятница, 9 октября · 19:00</p>
+</section>
+
+<!-- Место -->
+<section class="block reveal">
+  <h2>Место проведения</h2>
+  <p class="place">La Strada</p>
+  <p>ул. Беймбет Майлина, 35</p>
+  <a class="btn" target="_blank" rel="noopener"
+     href="https://2gis.kz/astana/search/la%20strada/firm/70000001115627987/71.485174%2C51.148291">Открыть в 2GIS</a>
+</section>
+
+<!-- Анкета -->
+<section class="block reveal" id="rsvp">
+  <h2>Анкета гостя</h2>
+  <p>Пожалуйста, подтвердите ваше присутствие</p>
+  <form id="form" class="form">
+    <label>ФИО
+      <input type="text" name="name" required autocomplete="name" placeholder="Иванов Иван Иванович">
+    </label>
+    <fieldset>
+      <label class="radio"><input type="radio" name="attend" value="Приду" required><span>Приду</span></label>
+      <label class="radio"><input type="radio" name="attend" value="Не приду"><span>Не приду</span></label>
+    </fieldset>
+    <button type="submit" class="btn">Отправить</button>
+    <p id="status" class="status" role="status"></p>
+  </form>
+</section>
+
+<footer class="footer">✦</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
