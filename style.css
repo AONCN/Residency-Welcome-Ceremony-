@@ -49,10 +49,10 @@ body{font-family:'Playfair Display',Georgia,serif;color:var(--ink);overflow-x:hi
 .orn-gem{color:var(--gold);font-size:14px}
 .gold-hr{width:40px;height:.5px;background:var(--gold-d);margin:24px auto}
 
-.invite-lead{font:700 clamp(26px,7vw,35px)/1.35 'Cormorant Garamond',serif;color:var(--gold-l);letter-spacing:.5px}
-.invite-body{font:500 clamp(23px,6.1vw,29px)/1.55 'Cormorant Garamond',serif;color:#fff;max-width:560px;margin:0 auto 1em}
+.invite-lead{font:700 clamp(24px,6.4vw,32px)/1.35 'Cormorant Garamond',serif;color:var(--gold-l);letter-spacing:.5px}
+.invite-body{font:500 clamp(21px,5.5vw,26px)/1.6 'Cormorant Garamond',serif;color:#fff;max-width:560px;margin:0 auto 1em}
 .invite-body strong{font-weight:700}
-.invite-final{font:italic 700 clamp(26px,6.8vw,33px)/1.35 'Cormorant Garamond',serif;color:var(--gold-l)}
+.invite-final{font:italic 700 clamp(24px,6.2vw,30px)/1.35 'Cormorant Garamond',serif;color:var(--gold-l)}
 .invite-body strong{font-weight:600;color:var(--gold-l);letter-spacing:1px}
 
 .date-row{display:grid;grid-template-columns:repeat(4,auto);justify-content:center;margin-top:8px}
