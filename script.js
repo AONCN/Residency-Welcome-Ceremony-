@@ -1,7 +1,7 @@
 // ---- Настройки ----
 // URL веб-приложения Google Apps Script (см. apps-script/README.md), заканчивается на /exec.
-// Пока пусто: анкета не уходит никуда, ответ сохраняется только в браузере гостя.
-const RSVP_ENDPOINT = "";
+// Если оставить пустым, анкета никуда не уходит, ответ сохраняется только в браузере гостя.
+const RSVP_ENDPOINT = "https://script.google.com/macros/s/AKfycbyfTUH6STXgrxndmp34r-85NIOp240yYdQF1mrdDnKleyCGufaOC664XdwBR1E3jCKr6A/exec";
 // 09.10.2026 19:00, Астана (UTC+5)
 const EVENT = new Date("2026-10-09T19:00:00+05:00");
 const $ = id => document.getElementById(id);
