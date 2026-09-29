@@ -1,5 +1,5 @@
 // ---- Настройки ----
-// Куда отправлять анкеты (например, https://formsubmit.co/ajax/<email> или Google Apps Script).
+// URL веб-приложения Google Apps Script (см. apps-script/README.md), заканчивается на /exec.
 // Пока пусто: анкета не уходит никуда, ответ сохраняется только в браузере гостя.
 const RSVP_ENDPOINT = "";
 // 09.10.2026 19:00, Астана (UTC+5)
@@ -55,8 +55,8 @@ $("anketa").addEventListener("submit", async e => {
   const data = { "ФИО": name, "Ответ": chosen };
   try {
     if (RSVP_ENDPOINT) {
-      const r = await fetch(RSVP_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json", "Accept": "application/json" }, body: JSON.stringify(data) });
-      if (!r.ok) throw new Error(r.status);
+      // Apps Script не отдаёт CORS-заголовки, поэтому no-cors: ответ непрозрачный, ошибки сети всё равно ловятся
+      await fetch(RSVP_ENDPOINT, { method: "POST", mode: "no-cors", body: new URLSearchParams(data) });
     }
     try { localStorage.setItem("rsvp", JSON.stringify(data)); } catch (_) {}
     form.style.display = "none";
